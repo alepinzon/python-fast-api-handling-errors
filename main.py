@@ -33,16 +33,15 @@ class UnhandleExceptionsRoute(APIRoute):
                 body = await request.json()
 
                 request = {
-                    #"headers": request.headers,
-                    "hostName": None,
-                    "url": request.url.path,
+                    "headers": request.headers.items(),
+                    "hostName": request.client.host,
+                    "url": request.url._url,
                     "httpMethod": request.method,
-                    "ipAddress": request.client.host,
-                    "queryString": request.query_params,
+                    "ipAddress": None,
+                    "queryString": request.query_params._dict,
                     "form": body,
                     "rawData": None,
                 }
-
 
                 tags = ["env:stg","service:my-api"]
 
